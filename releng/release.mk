@@ -5,11 +5,11 @@
 # release process
 ########################################################################
 
-# `make release/start VERSION=X.Y.0` is meant to be run by the human
-# maintainer when work on a new X.Y.0 starts.
+# `make release/start START_VERSION=X.Y.0` is meant to be run by the
+# human maintainer when work on a new X.Y.0 starts.
 release/start:
-	@test -n "$(VERSION)" || (printf "VERSION is required\n"; exit 1)
-	@$(OSS_HOME)/releng/00-release-start --next-version $(VERSION)
+	@[[ "$(START_VERSION)" =~ ^[0-9]+\.[0-9]+\.0$$ ]] || (printf '$(RED)ERROR: START_VERSION must be set to a GA "2.Y.0" value; it is set to "%s"$(END)\n' "$(START_VERSION)"; exit 1)
+	@$(OSS_HOME)/releng/00-release-start --next-version $(START_VERSION)
 .PHONY: release/start
 
 ########################################################################
